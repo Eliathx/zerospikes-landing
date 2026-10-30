@@ -1,0 +1,588 @@
+:root {
+  color-scheme: dark;
+  font-family: var(--font-onest), Arial, sans-serif;
+  color: var(--text);
+  background: var(--page);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+
+  --page: #1a1d1b;
+  --text: #dedede;
+  --text-secondary: #777a73;
+  --accent: #5b966b;
+  --radius-control: 4px;
+  --radius-code: 5px;
+  --mono: var(--font-mono), "SFMono-Regular", Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  /* Thin, transparent track and a muted thumb: the page and every code block share it. */
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--text-secondary) 45%, transparent) transparent;
+}
+
+/* `clip`, not `hidden`: the footer's glow is as wide as the window, scrollbar included. */
+html { scroll-behavior: smooth; overflow-x: clip; }
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.page {
+  width: min(100% - 48px, 1080px);
+  margin-inline: auto;
+}
+
+.topbar {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wordmark {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.wordmark span, .accent { color: var(--accent); }
+
+.header-nav{
+    display: flex;
+    gap: 1.5rem;
+}
+
+.top-link, .text-link {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.icon-link { display: inline-flex; align-items: center; }
+
+
+.hero {
+  padding: 112px 0 104px;
+  max-width: 680px;
+}
+
+.eyebrow, .section-heading span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.015em;
+  color: var(--text-secondary);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 27px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 0;
+  background: var(--accent);
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+.headline-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: 0.12em;
+  margin-right: 0.02em;
+  color: var(--accent);
+  vertical-align: -0.18em;
+}
+
+.headline-accent { color: var(--accent); }
+
+.intro {
+  max-width: 490px;
+  margin: 24px 0 0;
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+  margin-top: 30px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 15px;
+  border: 1px solid var(--text);
+  border-radius: 0;
+  background: var(--text);
+  color: var(--page);
+  font-size: 16px;
+}
+
+.actions .text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+button.text-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+button.text-link:hover, button.text-link[data-copied] { color: var(--text); }
+
+
+.install {
+  max-width: 340px;
+  margin-top: 28px;
+}
+
+.install .code-block { margin: 0; }
+.install .code-block { max-height: 42px; }
+.install pre { padding: 0 48px 0 16px; font-size: 16px; line-height: 40px; }
+.install .copy-button { top: 50%; right: 12px; transform: translateY(-50%); }
+/* Only `npm` keeps its highlight color; the rest reads as plain text. */
+.install code > span:nth-child(n + 2) { color: var(--text) !important; }
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 0;
+  padding: 22px 24px;
+  border: 1px solid color-mix(in srgb, var(--text-secondary) 35%, transparent);
+  border-radius: 0;
+  background: var(--page);
+  color: var(--text);
+  font: 13px/1.9 var(--mono);
+}
+
+.example {
+  padding: 25px 0 68px;
+}
+
+.example .section-heading { margin-bottom: 32px; }
+
+.example-code {
+  line-height: 1.85;
+}
+
+/* The replay and a hidden copy of its finished screen share one cell: the copy sets the height. */
+.terminal-screen { display: grid; }
+.terminal-screen > pre { grid-area: 1 / 1; }
+.terminal-ghost { visibility: hidden; }
+
+.terminal figcaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Tabs over one cell that holds every panel: the tallest sets the height. */
+.phases-tabs {
+  display: flex;
+  overflow-x: auto;
+  /* Shadows, not borders: the selected tab's line lies on this one, inside the scrolling box. */
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--text-secondary) 35%, transparent);
+  scrollbar-width: none;
+}
+
+.phases-tabs button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  padding: 10px 16px 11px;
+  border: 0;
+  background: none;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, box-shadow 0.15s;
+}
+
+.phases-tabs button:first-child { padding-left: 0; }
+.phases-tabs button:hover { color: var(--text); }
+.phases-tabs button[aria-selected="true"] { color: var(--text); box-shadow: inset 0 -1px 0 var(--text); }
+/* While a next phase is coming, the underline is a track the bar fills. */
+.phases-tabs button[data-progress] { box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--text) 25%, transparent); }
+
+.phases-progress {
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--text);
+  transform-origin: left;
+  animation: phases-progress linear forwards;
+}
+
+@keyframes phases-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.phases-number { color: var(--text-secondary); }
+
+/* `minmax(0, …)` so a wide terminal scrolls inside its own box instead of widening the page. */
+.phases-panels { display: grid; grid-template-columns: minmax(0, 1fr); }
+/* The old panel fades out before the new one fades in, so the two never show at once. */
+.phases-panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s, visibility 0s 0.15s;
+}
+.phases-panel[data-active] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s 0.15s, visibility 0s 0.15s;
+}
+.phases-panel .code-block { margin: 0; }
+
+.phases-caption {
+  max-width: 640px;
+  margin: 18px 0 24px;
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.phases-caption code { color: var(--text); font: 13px var(--mono); }
+.phases-caption a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.15em;
+  vertical-align: text-bottom;
+  background: var(--text);
+  animation: terminal-blink 1s steps(1) infinite;
+}
+
+@keyframes terminal-blink {
+  50% { opacity: 0; }
+}
+
+.features {
+  padding: 25px 0 68px;
+}
+
+/* Each question under a line, its answer folded until the question is clicked. */
+.faq { padding: 25px 0 68px; }
+
+.faq details {
+  border-top: 1px solid color-mix(in srgb, var(--text-secondary) 35%, transparent);
+  font-size: 16px;
+}
+
+.faq details:last-of-type {
+  border-bottom: 1px solid color-mix(in srgb, var(--text-secondary) 35%, transparent);
+}
+
+.faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq summary::-webkit-details-marker { display: none; }
+
+/* A plus in 1px lines that loses its upright when open, leaving a minus. */
+.faq summary::after {
+  content: "";
+  flex: none;
+  width: 11px;
+  height: 11px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1px 100% no-repeat;
+  color: var(--text-secondary);
+}
+
+.faq details[open] summary::after {
+  background: linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat;
+}
+
+.faq summary:hover::after { color: var(--text); }
+
+.faq details p {
+  max-width: 720px;
+  margin: 0;
+  padding-bottom: 22px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.faq details code { color: var(--text); font: 15px var(--mono); }
+.faq details a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+
+/* A bento grid of outlined cells: a wide card spans two of the three columns. */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.features-grid li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 190px;
+  padding: 26px 24px 28px;
+  border: 1px solid color-mix(in srgb, var(--text-secondary) 35%, transparent);
+}
+
+.features-grid .wide { grid-column: span 2; }
+.features-grid .wide h3 { font-size: 19px; }
+.features-grid .wide p { font-size: 14px; }
+.features-grid .wide :is(h3, p) { max-width: 440px; }
+
+/*
+ * The isometric drawings (components/FeatureArt.tsx): one object per card, outlined,
+ * with one part in the accent. Above the text in a narrow card; in a wide one, a column
+ * of its own on the right, so text and drawing keep a gap however narrow the card gets.
+ */
+.feature-art {
+  --iso-line: color-mix(in srgb, var(--text) 50%, var(--page));
+  display: block;
+  width: auto;
+  height: 150px;
+  max-width: 100%;
+  margin-bottom: auto;
+  overflow: visible;
+}
+
+.features-grid .feature-art + h3 { margin-top: 28px; }
+
+.features-grid .wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: 1fr auto auto;
+  column-gap: 32px;
+}
+
+.features-grid .wide .feature-art {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: center;
+  height: 170px;
+  max-width: none;
+  margin: 0;
+}
+
+.features-grid .wide .feature-art + h3 { grid-row: 2; margin-top: 0; }
+.features-grid .wide p { grid-row: 3; }
+
+.feature-art :is(polygon, polyline, path, ellipse) {
+  stroke: var(--iso-line);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.feature-art .t { fill: color-mix(in srgb, var(--text) 8%, var(--page)); }
+.feature-art .l { fill: var(--page); }
+.feature-art .r { fill: color-mix(in srgb, var(--text) 4%, var(--page)); }
+.feature-art :is(polyline, .dash) { fill: none; }
+.feature-art .dash { stroke: var(--text-secondary); stroke-dasharray: 3 3; }
+.feature-art .track { stroke: color-mix(in srgb, var(--text) 70%, var(--page)); stroke-width: 1.5; }
+.feature-art .trail { stroke: var(--accent); stroke-width: 2; }
+.feature-art .cursor { fill: var(--page); }
+
+.feature-art .a { stroke: color-mix(in srgb, var(--accent) 45%, var(--page)); }
+.feature-art .a.t { fill: var(--accent); }
+.feature-art .a.l { fill: color-mix(in srgb, var(--accent) 60%, var(--page)); }
+.feature-art .a.r { fill: color-mix(in srgb, var(--accent) 75%, var(--page)); }
+.feature-art circle.a { fill: var(--accent); stroke: none; }
+
+.features-grid h3 {
+  margin: 0 0 14px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.features-grid p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+@media (max-width: 680px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .features-grid .wide { grid-column: auto; }
+  .features-grid li { min-height: 0; }
+  .features-grid .wide { display: flex; }
+  .features-grid .wide :is(h3, p) { max-width: none; }
+  .features-grid .wide .feature-art { height: 150px; max-width: 100%; margin-bottom: auto; }
+  .features-grid .wide .feature-art + h3 { margin-top: 28px; }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  /* Room over the line for the glow to rise into; the line itself sits at the bottom of the page. */
+  padding: 3rem 0 1rem;
+  color: var(--text);
+  font-size: 14px;
+}
+.footer.glow { padding-top: 240px; }
+
+/*
+ * A grainy glow rising from the bottom of the page, the window's full width: grey on the
+ * left warming into the accent on the right. Behind everything (z-index -1 with no
+ * stacking context above it), fading out upward.
+ */
+.footer.glow::before,
+.footer.glow::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  height: 750px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent, #000 60%);
+}
+
+.footer.glow::before {
+  background:
+    radial-gradient(60% 100% at 92% 100%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 75%),
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--text) 5%, transparent),
+      color-mix(in srgb, color-mix(in srgb, var(--text) 40%, var(--accent)) 10%, transparent) 40%,
+      color-mix(in srgb, var(--accent) 15%, transparent) 70%,
+      color-mix(in srgb, var(--accent) 22%, transparent)
+    );
+}
+
+/*
+ * The grain: grey noise blended over the glow, so it shows where the glow is bright and
+ * fades into the dark page, like film grain.
+ */
+.footer.glow::after {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.85;
+}
+
+@media (max-width: 560px) {
+  .page { width: min(100% - 36px, 1080px); }
+  .topbar { height: 64px; }
+  .hero { padding: 86px 0 80px; }
+  .intro { font-size: 15px; }
+  h1 { font-size: 26px; line-height: 1.3; }
+  .section-heading { align-items: flex-start; flex-direction: column; gap: 7px; }
+  pre { padding: 18px; font-size: 13px; }
+  .footer { flex-direction: column; gap: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}
+
+.code-block {
+  position: relative;
+  margin: 0 0 20px;
+  border: 1px solid color-mix(in srgb, var(--text-secondary) 35%, transparent);
+  border-radius: 0;
+  background: var(--page);
+  overflow: hidden;
+}
+
+.code-block figcaption {
+  padding: 10px 24px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text-secondary) 35%, transparent);
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+
+.code-block pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.copy-button:hover,
+.copy-button[data-copied] { color: var(--text); background: color-mix(in srgb, var(--text) 10%, transparent); }
+.copy-button[data-copied] { color: var(--accent); }
+

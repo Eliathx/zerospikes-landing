@@ -1,0 +1,18 @@
+# zerospikes
+
+> Interaction performance limits for Playwright, a kind of performance budget. Scenarios run real interactions (typing, clicking, dragging, scrolling), measure frame times, input latency per gesture phase, main-thread CPU time and memory cycles, and fail when a change makes them slower than limits recorded like a snapshot.
+
+Package: `zerospikes` (ESM, peer dependency `@playwright/test >= 1.49`). Entry points: `zerospikes`, `zerospikes/reporter` and `zerospikes/app` (Tauri and Electron, experimental). Limits are saved in `__limits__/<spec file>.json` next to the spec, with the machine they were recorded on, and only hold on that machine; in CI, `npx zerospikes compare` measures two builds on the same runner instead. Every page below is plain Markdown; the same pages render as HTML at /docs.
+
+## Docs
+
+- [Getting started](/docs/index.md): install, Playwright config, first scenario, a failure
+- [Writing scenarios](/docs/scenarios.md): typing, clicking, dragging, scrolling, memory leaks
+- [Metrics](/docs/metrics.md): every metric and what it means
+- [Limits](/docs/limits.md): lowering, accepting, other machines, fixed limits, page errors
+- [CLI and CI](/docs/cli.md): the reporter, `npx zerospikes`, and `zerospikes compare` in CI
+- [API reference](/docs/api.md): `zs.measure`, `zs.cycles`, `zs.drag`, `zs.frame`, options, desktop apps
+
+## Optional
+
+- [Source repository](https://github.com/Eliathx/zerospikes)
