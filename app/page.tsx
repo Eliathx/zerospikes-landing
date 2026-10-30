@@ -35,14 +35,16 @@ Read https://zerospikes.eliath.dev/llms.txt first, then https://zerospikes.eliat
 const FIRST_RUN = `$ npx playwright test
   PASS    filter as you type (4.1s)
 
-  zerospikes  1 scenario · all within limits · 1 limits recorded`;
+  zerospikes  1 scenario · all within limits · 1 new`;
 
-/** After a change that slows the filter down, the same test fails. */
+/** After a change that slows the filter down, the same test fails and names the functions at fault. */
 const SLOWER_RUN = `$ npx playwright test
   FAIL    filter as you type (4.6s)
 
   zerospikes  1 scenario · 1 over limits
-  FAIL   filter as you type › type 'mar'   input key 212 ms > 64, frame.max 205 ms > 58`;
+  FAIL   filter as you type › type 'mar'   input key 212 ms > 64, frame.max 205 ms > 58
+       188 ms  filterRows  src/search.js:42
+        14 ms  renderList  src/list.js:17`;
 
 /** Columns of the view's metrics pane: name, last value, limit. */
 const metric = (name: string, last: string, limit: string) => `    ${name.padEnd(16)}  {r:${last.padStart(9)}}  ${limit.padStart(9)}`;

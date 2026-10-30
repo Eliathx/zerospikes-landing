@@ -14,8 +14,10 @@ folder to `.gitignore`.
   PASS    filter as you type (4.1s)
   FAIL    sort by client (3.8s)
 
-  zerospikes  6 scenarios · 1 over limits · 1 limits recorded
-  FAIL    sort by client › click the header   input down/up 246 ms > 157, frame.max 243 ms > 146
+  zerospikes  6 scenarios · 1 over limits · 1 new
+  FAIL   sort by client › click the header   input down/up 246 ms > 157, frame.max 243 ms > 146
+       319 ms  (anonymous in sortRows)  index.js:11740
+      28.5 ms  sortRows                 index.js:11738
 
   Details, trends and limits: npx zerospikes
 ```

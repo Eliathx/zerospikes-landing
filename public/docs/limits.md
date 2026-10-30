@@ -20,6 +20,9 @@ Limits record the machine they were measured on: CPU, cores, platform, browser v
 headless or not. On another machine they aren't checked: the scenario shows `SKIP` and
 passes, and `-u` records that machine's own.
 
+Upgrading Playwright changes the browser version, so the same happens: run `-u` once
+after an upgrade to check against limits again.
+
 So commit `__limits__` when one machine records them for everyone. On hosted CI runners,
 whose hardware changes, use [`zerospikes compare`](cli.md) instead.
 

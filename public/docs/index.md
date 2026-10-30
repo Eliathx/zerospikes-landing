@@ -61,17 +61,16 @@ passes. From then on, a scenario that gets slower fails, and points at the code 
 took the time:
 
 ```output
-zerospikes: "click the header" is over its limits
-  frame.max             346 ms  > 146
-  input.up              351 ms  > 157
-  cpu.main              252 ms  > 126
+  FAIL    filter as you type (4.6s)
 
-  self time in one profiled run:
-       319 ms  (anonymous in sortRows) @ index.js:11740
-      28.5 ms  sortRows @ index.js:11738
-
-  CPU profile: test-results/…/click-the-header.cpuprofile  (DevTools › Performance › Load profile)
+  zerospikes  1 scenario · 1 over limits
+  FAIL   filter as you type › type 'mar'   cpu.main 215 ms > 63, frame.max 72.8 ms > 22
+       142 ms  foldText                   index.js:11721
+      57.5 ms  (anonymous in filterRows)  index.js:11729
 ```
+
+The times are each function's own, from one more run profiled because it failed.
+`npx zerospikes` shows the rest, and the whole profile to open in DevTools.
 
 ## Next
 
